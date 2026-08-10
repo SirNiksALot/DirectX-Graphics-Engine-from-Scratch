@@ -1,9 +1,14 @@
 #include <DX3D/Game/Game.h>
+#include <DX3D/Window/Window.h>
 
-Game::Game()
+dx3d::Game::Game()
 {
+	m_display = std::make_unique<Window>();
+
 }
 
-Game::~Game()
+dx3d::Game::~Game()
 {
+	
 }
+

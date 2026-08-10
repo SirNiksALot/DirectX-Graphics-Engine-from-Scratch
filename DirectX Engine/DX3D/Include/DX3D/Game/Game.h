@@ -1,4 +1,5 @@
 #pragma once
+#include <DX3D/Core/Core.h>
 #include <DX3D/Core/Base.h>
 
 namespace dx3d {
@@ -6,9 +7,16 @@ namespace dx3d {
 	{
 		public:
 			Game();
-			virtual ~Game();
+			virtual ~Game() override;
 
-			virtual void run() final;
+			virtual void run() final; // The main game loop function
+	private:
+		std::unique_ptr<Window> m_display{}; 
+		// smart pointer approach , automatically deleted this object when Destructor is called , so that we dont need to write ```delete m_handle``` in the destructor
+		
+		
+		bool m_isRunning{ true };
+
 	};
 
 }
