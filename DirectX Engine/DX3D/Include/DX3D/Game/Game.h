@@ -11,6 +11,7 @@ namespace dx3d {
 
 			virtual void run() final; // The main game loop function
 	private:
+		std::unique_ptr<GraphicsEngine> m_graphicsEngine{};
 		std::unique_ptr<Window> m_display{}; 
 		// smart pointer approach , automatically deleted this object when Destructor is called , so that we dont need to write ```delete m_handle``` in the destructor
 		
