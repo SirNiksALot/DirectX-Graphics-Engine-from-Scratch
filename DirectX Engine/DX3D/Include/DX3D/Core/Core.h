@@ -7,4 +7,5 @@ namespace dx3d {
 	class Game;
 	class RenderSystem;
 	class GraphicsEngine;
+	class Logger
 }
