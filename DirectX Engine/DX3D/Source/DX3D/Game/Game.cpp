@@ -3,11 +3,14 @@
 #include <DX3D/Graphics/GraphicsEngine.h>
 #include <DX3D/Core/Logger.h>
 
-dx3d::Game::Game()
+dx3d::Game::Game(const GameDesc& desc):Base({ *std::make_unique<Logger>(desc.logLevel).release()}),
+	m_loggerPtr(&m_logger) 
+	// 👆 because the Base() initialization means the logger is only accessible in the base class , 
+	// therefore we need to reinject it back to Game Class.
+
 {
-	m_loggerPtr = std::make_unique<Logger>();
-	m_graphicsEngine = std::make_unique<GraphicsEngine>();
-	m_display = std::make_unique<Window>();
+	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{m_logger});
+	m_display = std::make_unique<Window>(WindowDesc{m_logger});
 
 	m_loggerPtr->log(Logger::LogLevel::Info,"Game Initialized");
 }
