@@ -1,4 +1,5 @@
 #include <DX3D/Graphics/RenderSystem.h>
+#include <DX3D/Graphics/GraphicsLogUtils.h>
 
 
 dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
@@ -22,10 +23,8 @@ dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
 		&featureLevel, // Feature level
 		&m_d3dContext // ⭐ The D3D11 "Device Context"
 	);
-	if (FAILED(hr)) {
-		getLogger().log(Logger::LogLevel::Error, "Failed to initialize DX3D11 using D3D11CreateDevice");
-		throw std::runtime_error("Failed to run D3D11CreateDevice");
-	}
+	DX3DGraphicsLogErrorAndThrow(hr, "D3D11CreateDevice Failed.");
+	
 }
 
 

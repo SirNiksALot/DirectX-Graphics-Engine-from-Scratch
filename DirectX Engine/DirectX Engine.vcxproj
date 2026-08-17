@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -162,6 +162,7 @@
     <ClInclude Include="DX3D\Include\DX3D\Core\Common.h" />
     <ClInclude Include="DX3D\Include\DX3D\Window\Window.h" />
     <ClInclude Include="DX3D\Include\DX3D\Graphics\GraphicsEngine.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsLogUtils.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\RenderSystem.h" />
     <ClInclude Include="DX3D\Include\DX3D\Core\Logger.h" />
   </ItemGroup>
