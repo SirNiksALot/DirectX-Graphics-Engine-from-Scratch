@@ -4,6 +4,7 @@
 
 dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
 {
+	// -----------------------------Creating D3D11 Device --------------------------------------
 	D3D_FEATURE_LEVEL featureLevel{};
 	UINT createDeviceFlags{};
 
@@ -23,7 +24,23 @@ dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
 		&featureLevel, // Feature level
 		&m_d3dContext // ⭐ The D3D11 "Device Context"
 	);
+	
 	DX3DGraphicsLogErrorAndThrow(hr, "D3D11CreateDevice Failed.");
+
+	
+	// ---------------------------------Initialization for Creating Swap chain ------------------------------------
+	DX3DGraphicsLogErrorAndThrow(m_d3dDevice->QueryInterface(IID_PPV_ARGS(&m_dxgiDevice)),
+		"QueryInterface failed to retrieve IDXGI interface"
+		);
+
+	DX3DGraphicsLogErrorAndThrow(m_dxgiDevice->GetParent(IID_PPV_ARGS(&m_dxgiAdapter)),
+		"GetParent failed to retrieve IDXGI Adapter"
+	);
+
+	DX3DGraphicsLogErrorAndThrow(m_dxgiAdapter->GetParent(IID_PPV_ARGS(&m_dxgiFactory)),
+		"GetParent failed to retrieve IDXGI Factory"
+	);
+
 	
 }
 

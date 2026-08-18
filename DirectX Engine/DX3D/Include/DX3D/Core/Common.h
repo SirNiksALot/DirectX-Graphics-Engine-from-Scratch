@@ -1,6 +1,7 @@
 #pragma once
 #include <DX3D/Core/Logger.h>
 #include <DX3D/Core/Core.h>
+#include <DX3D/Math/Rect.h>
 
 
 namespace dx3d{
@@ -22,5 +23,10 @@ namespace dx3d{
 	
 	struct GameDesc {
 		Logger::LogLevel logLevel = Logger::LogLevel::Error;
+	};
+
+	struct SwapChainDesc {
+		void* winHandle{};
+		Rect winSize{};
 	};
 }
