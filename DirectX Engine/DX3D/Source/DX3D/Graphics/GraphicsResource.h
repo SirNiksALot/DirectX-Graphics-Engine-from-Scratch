@@ -1,11 +1,13 @@
 #pragma once
 #include <DX3D/Core/Base.h>
 #include <DX3D/Core/Common.h>
+#include <DX3D/Graphics/GraphicsLogUtils.h>
 #include <d3d11.h>
+#include <wrl.h>
 
 namespace dx3d {
 
-	struct GraphcisResourceDesc {
+	struct GraphicsResourceDesc {
 		BaseDesc base;
 		ID3D11Device& device;
 		IDXGIFactory& factory;
@@ -15,7 +17,7 @@ namespace dx3d {
 
 	class GraphicsResource : public Base {
 		public :
-			explicit GraphicsResource(const GraphcisResourceDesc& desc) :
+			explicit GraphicsResource(const GraphicsResourceDesc& desc) :
 				Base(desc.base),
 				m_device(desc.device),
 				m_factory(desc.factory)

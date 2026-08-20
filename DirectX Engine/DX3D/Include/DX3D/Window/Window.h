@@ -10,6 +10,7 @@ namespace dx3d {
 		virtual ~Window() override;
 	private:
 		void* m_handle{};
+		Rect m_size{};
 	};
 
 

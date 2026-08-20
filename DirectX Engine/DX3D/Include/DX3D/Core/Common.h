@@ -11,8 +11,13 @@ namespace dx3d{
 
 	struct WindowDesc {
 		BaseDesc base;
+		Rect size{}
 	};
 
+	struct DisplayDesc {
+		WindowDesc window;
+		RenderSystem& renderSystem;
+	};
 	struct GraphicsEngineDesc {
 		BaseDesc base;
 	};
