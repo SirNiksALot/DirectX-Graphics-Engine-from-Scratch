@@ -3,7 +3,7 @@
 int main() {
 
 	try {
-		dx3d::Game game({dx3d::Logger::LogLevel::Error});
+		dx3d::Game game({ {1280,720},dx3d::Logger::LogLevel::Error });
 
 		game.run();
 	}

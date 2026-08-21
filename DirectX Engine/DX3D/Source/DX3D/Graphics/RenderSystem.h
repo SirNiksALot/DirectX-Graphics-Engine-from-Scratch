@@ -6,13 +6,13 @@
 #include <DX3D/Graphics/GraphicsResource.h>
 
 namespace dx3d {
-	class RenderSystem : public Base
+	class RenderSystem : public Base, public std::enable_shared_from_this<RenderSystem>
 	{
 	public:
 		explicit RenderSystem(const RenderSystemDesc& desc);
 		virtual ~RenderSystem() override;
 
-		SwapChainPtr createSwapChain(const SwapChainDesc& desc);
+		SwapChainPtr createSwapChain(const SwapChainDesc& desc) const;
 
 	private:
 		GraphicsResourceDesc getGraphicsResourceDesc() const noexcept;

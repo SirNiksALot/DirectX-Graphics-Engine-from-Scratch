@@ -50,12 +50,12 @@ dx3d::RenderSystem::~RenderSystem()
 {
 }
 
-SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc)
+SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc) const
 {
 	return std::make_shared<SwapChain>(desc,getGraphicsResourceDesc());
 }
 
-GraphicsResourceDesc dx3d::RenderSystem::getGraphicsResourceDesc()
+GraphicsResourceDesc dx3d::RenderSystem::getGraphicsResourceDesc() const noexcept
 {
-	return {m_logger , *m_d3dDevice.Get() , *m_dxgiFactory.Get()};
+	return { m_logger , shared_from_this() ,*m_d3dDevice.Get() , *m_dxgiFactory.Get()};
 }
