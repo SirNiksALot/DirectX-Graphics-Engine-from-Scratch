@@ -9,12 +9,21 @@ namespace dx3d {
 			Info
 		};
 		explicit Logger(LogLevel logLevel = LogLevel::Error); //default parameters to contructor
+		
+		~Logger();
+
 		void log(LogLevel logLevel, const char* message) const; // main function ⭐
 		// The "const" here tels the compiler that this function doesn't alter the state of the class i.e. alter attributes or something
 
 
 	private:
 		LogLevel m_logLevel = LogLevel::Error;
+
+	protected:
+		Logger(const Logger&) = delete;
+		Logger(Logger&&) = delete;
+		Logger& operator = (const Logger&) = delete;
+		Logger& operator = (Logger&&) = delete;
 	};
 
 #define DX3DLogError(message)\

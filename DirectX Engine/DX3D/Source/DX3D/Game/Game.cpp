@@ -6,18 +6,19 @@
 
 dx3d::Game::Game(const GameDesc& desc):Base({ *std::make_unique<Logger>(desc.logLevel).release()}),
 	m_loggerPtr(&m_logger) 
-	// 👆 because the Base() initialization means the logger is only accessible in the base class , 
-	// therefore we need to reinject it back to Game Class.
+	// 👆 because the Base() initialization means the m_logger is set, 
+	// therefore we use m_logger& to set m_loggerPtr
 
 {
 	m_graphicsEngine = std::make_unique<GraphicsEngine>(GraphicsEngineDesc{m_logger});
-	m_display = std::make_unique<Display>(DisplayDesc{ m_logger , desc.windowSize , m_graphicsEngine->getRenderSystem() });
+	m_display = std::make_unique<Display>(DisplayDesc{ m_logger , desc.windowSize , m_graphicsEngine->getGraphicsDevice() });
 
 	DX3DLogInfo("Game Initialized");
+
 }
 
 dx3d::Game::~Game()
 {
-	DX3DLogInfo("Game deallocation started");
+	DX3DLogInfo("Game is shutting down...");
 }
 

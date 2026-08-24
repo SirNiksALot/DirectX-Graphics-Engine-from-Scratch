@@ -28,7 +28,7 @@ dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc
 
 
 
-	DX3DGraphicsLogErrorAndThrow(m_factory.CreateSwapChain(&m_device, &dxgiDesc, &m_swapChain),
+	DX3DGraphicsLogThrowOnFail(m_factory.CreateSwapChain(&m_device, &dxgiDesc, &m_swapChain),
 		"CreateSwapChain Failed."
 		);
 }

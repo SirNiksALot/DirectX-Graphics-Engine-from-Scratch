@@ -1,9 +1,11 @@
-#include <DX3D/Graphics/RenderSystem.h>
+#include <DX3D/Graphics/GraphicsDevice.h>
 #include <DX3D/Graphics/GraphicsLogUtils.h>
 #include <DX3D/Graphics/SwapChain.h>
+#include <DX3D/Graphics/DeviceContext.h>
+
 using namespace dx3d;
 
-dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
+dx3d::GraphicsDevice::GraphicsDevice(const GraphicsDeviceDesc& desc):Base(desc.base)
 {
 	// -----------------------------Creating D3D11 Device --------------------------------------
 	D3D_FEATURE_LEVEL featureLevel{};
@@ -26,19 +28,19 @@ dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
 		&m_d3dContext // ⭐ The D3D11 "Device Context"
 	);
 	
-	DX3DGraphicsLogErrorAndThrow(hr, "D3D11CreateDevice Failed.");
+	DX3DGraphicsLogThrowOnFail(hr, "D3D11CreateDevice Failed.");
 
 	
 	// ---------------------------------Initialization for Creating Swap chain ------------------------------------
-	DX3DGraphicsLogErrorAndThrow(m_d3dDevice->QueryInterface(IID_PPV_ARGS(&m_dxgiDevice)),
+	DX3DGraphicsLogThrowOnFail(m_d3dDevice->QueryInterface(IID_PPV_ARGS(&m_dxgiDevice)),
 		"QueryInterface failed to retrieve IDXGI interface"
 		);
 
-	DX3DGraphicsLogErrorAndThrow(m_dxgiDevice->GetParent(IID_PPV_ARGS(&m_dxgiAdapter)),
+	DX3DGraphicsLogThrowOnFail(m_dxgiDevice->GetParent(IID_PPV_ARGS(&m_dxgiAdapter)),
 		"GetParent failed to retrieve IDXGI Adapter"
 	);
 
-	DX3DGraphicsLogErrorAndThrow(m_dxgiAdapter->GetParent(IID_PPV_ARGS(&m_dxgiFactory)),
+	DX3DGraphicsLogThrowOnFail(m_dxgiAdapter->GetParent(IID_PPV_ARGS(&m_dxgiFactory)),
 		"GetParent failed to retrieve IDXGI Factory"
 	);
 
@@ -46,16 +48,21 @@ dx3d::RenderSystem::RenderSystem(const RenderSystemDesc& desc):Base(desc.base)
 }
 
 
-dx3d::RenderSystem::~RenderSystem()
+dx3d::GraphicsDevice::~GraphicsDevice()
 {
 }
 
-SwapChainPtr dx3d::RenderSystem::createSwapChain(const SwapChainDesc& desc) const
+SwapChainPtr dx3d::GraphicsDevice::createSwapChain(const SwapChainDesc& desc) const
 {
 	return std::make_shared<SwapChain>(desc,getGraphicsResourceDesc());
 }
 
-GraphicsResourceDesc dx3d::RenderSystem::getGraphicsResourceDesc() const noexcept
+DeviceContextPtr dx3d::GraphicsDevice::createDeviceContext()
+{
+	return std::make_shared<DeviceContext>(getGraphicsResourceDesc());
+}
+
+GraphicsResourceDesc dx3d::GraphicsDevice::getGraphicsResourceDesc() const noexcept
 {
 	return { m_logger , shared_from_this() ,*m_d3dDevice.Get() , *m_dxgiFactory.Get()};
 }
