@@ -5,11 +5,13 @@
 namespace dx3d {
 	class Game : public Base
 	{
-		public:
-			explicit Game(const GameDesc& desc);
-			virtual ~Game() override;
+	public:
+		explicit Game(const GameDesc& desc);
+		virtual ~Game() override;
 
-			virtual void run() final; // The main game loop function
+		virtual void run() final; // The main game loop function
+	private:
+		void onInternalUpdate();
 	private:
 		std::unique_ptr<Logger> m_loggerPtr{};
 		std::unique_ptr<GraphicsEngine> m_graphicsEngine{};

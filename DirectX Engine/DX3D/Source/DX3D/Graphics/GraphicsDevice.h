@@ -15,6 +15,8 @@ namespace dx3d {
 		SwapChainPtr createSwapChain(const SwapChainDesc& desc) const;
 		DeviceContextPtr createDeviceContext();
 
+		void executeCommandList(DeviceContext& context);
+
 	private:
 		GraphicsResourceDesc getGraphicsResourceDesc() const noexcept;
 	private:

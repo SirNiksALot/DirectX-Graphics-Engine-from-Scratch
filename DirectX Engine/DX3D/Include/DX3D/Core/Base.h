@@ -7,7 +7,7 @@ namespace dx3d {
 		public:
 			explicit Base(const BaseDesc& desc); // we are injecting an "aggregated" object with all the required dependencies into the constructor . "Dependency aggregation" method for constructor
 			virtual ~Base();
-			virtual Logger& getLogger() const noexcept final;
+			virtual Logger& getLogger() noexcept final;
 
 	protected:
 		Base(const Base&) = delete;

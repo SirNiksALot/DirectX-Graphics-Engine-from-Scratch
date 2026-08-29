@@ -12,7 +12,7 @@ namespace dx3d {
 		
 		~Logger();
 
-		void log(LogLevel logLevel, const char* message) const; // main function ⭐
+		void log(LogLevel logLevel, const char* message) ; // main function ⭐
 		// The "const" here tels the compiler that this function doesn't alter the state of the class i.e. alter attributes or something
 
 

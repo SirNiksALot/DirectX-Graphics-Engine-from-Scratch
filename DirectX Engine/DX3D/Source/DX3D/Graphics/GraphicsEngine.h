@@ -8,10 +8,15 @@ namespace dx3d {
 	public:
 		explicit GraphicsEngine(const GraphicsEngineDesc& desc);
 		virtual ~GraphicsEngine() override;
-		GraphicsDevice& getGraphicsDevice() const noexcept;
+		GraphicsDevice& getGraphicsDevice() noexcept;
+
+		// This function will handle sending commands to GPU and writing to buffer using swapchain etc.
+		void render(SwapChain& swapChain);
+
 
 	private:
 		std::shared_ptr<GraphicsDevice> m_graphicsDevice{};
+		DeviceContextPtr m_deviceContext{};
 
 
 	};

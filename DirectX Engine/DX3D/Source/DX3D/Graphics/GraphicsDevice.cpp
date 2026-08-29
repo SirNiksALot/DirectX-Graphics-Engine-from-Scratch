@@ -62,6 +62,20 @@ DeviceContextPtr dx3d::GraphicsDevice::createDeviceContext()
 	return std::make_shared<DeviceContext>(getGraphicsResourceDesc());
 }
 
+void dx3d::GraphicsDevice::executeCommandList(DeviceContext& context)
+{
+	//------------ STEP 1 : Get Command list from deffered context i.e. m_context<ID3D11DeviceContext> ---------------------
+	Microsoft::WRL::ComPtr<ID3D11CommandList> list{};
+	DX3DGraphicsLogThrowOnFail(context.m_context->FinishCommandList(false, &list), // Extract command list from deffered context, and populate "list"
+		"FinishCommandList Failed.");
+    
+
+	//------------ STEP 2 : Execute the command list using Immediate context i.e. m_d3dContext<ID3D11DeviceContext> ------------
+	// We had initialized this context when we setup our D3D11 Device.
+	// This "m_d3dContext" is the Immediate context responsible for executing Commands on GPU
+	m_d3dContext->ExecuteCommandList(list.Get(),false);
+}
+
 GraphicsResourceDesc dx3d::GraphicsDevice::getGraphicsResourceDesc() const noexcept
 {
 	return { m_logger , shared_from_this() ,*m_d3dDevice.Get() , *m_dxgiFactory.Get()};
