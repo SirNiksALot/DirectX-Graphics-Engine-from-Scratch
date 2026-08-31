@@ -7,7 +7,7 @@ using namespace dx3d;
 
 dx3d::GraphicsDevice::GraphicsDevice(const GraphicsDeviceDesc& desc):Base(desc.base)
 {
-	// -----------------------------Creating D3D11 Device --------------------------------------
+	// ---------------------------------------Creating D3D11 Device --------------------------------------
 	D3D_FEATURE_LEVEL featureLevel{};
 	UINT createDeviceFlags{};
 

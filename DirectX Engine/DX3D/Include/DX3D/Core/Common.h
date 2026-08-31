@@ -36,4 +36,18 @@ namespace dx3d{
 		void* winHandle{};
 		Rect winSize{};
 	};
+
+	enum ShaderType {
+		VertexShader = 0,
+		PixelShader
+	};
+	
+	struct ShaderCompileDesc {
+		const char* shaderSourceName{};
+		const void* shaderSourceCode{};
+		size_t shaderSourceCodeSize{};
+		const char* shaderEntryPoint{}; //name of the entrypoint function in the shadercode
+		ShaderType shaderType{};
+	};
+
 }

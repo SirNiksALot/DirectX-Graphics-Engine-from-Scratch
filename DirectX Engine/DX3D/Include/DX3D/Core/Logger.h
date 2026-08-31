@@ -26,21 +26,16 @@ namespace dx3d {
 		Logger& operator = (Logger&&) = delete;
 	};
 
-#define DX3DLogError(message)\
-	getLogger().log((Logger::LogLevel::Error), message ); 
-// logLevel arg is in parenthesis to avoid unexpected behaviors , it doesn't mean anything else important
 
-#define DX3DLogInfo(message)\
-	getLogger().log((Logger::LogLevel::Info), message ); 
-
-#define DX3DLogWarning(message)\
-	getLogger().log((Logger::LogLevel::Warning), message ); 
+//Here 👇 logLevel "type" arg is in parenthesis to avoid unexpected behaviors , it doesn't mean anything else important
 
 
-#define DX3DLogErrorAndThrowException(message)\
-	 {\
-	DX3DLogError(message) ;\
-	throw std::runtime_error(message);\
-	}
+#define DX3DLog(logger,type,message)\
+logger.log((type),message)	
 
+
+#define DX3DLogThrow(logger,exception,type,message)\
+{\
+DX3DLog(logger,type,message);\
+throw exception(message);\	
 }

@@ -21,3 +21,19 @@ namespace dx3d {
 	};
 
 }
+
+#define DX3DLogError(message)\
+	DX3DLog(getLogger(),Logger::LogLevel::Error, message)
+
+#define DX3DLogInfo(message)\
+	DX3DLog(getLogger(),Logger::LogLevel::Info, message)
+
+
+#define DX3DLogWarning(message)\
+	DX3DLog(getLogger(),Logger::LogLevel::Warning, message)
+
+#define DX3DLogThrowError(message)\
+	DX3DLogThrow(getLogger(),std::runtime_error,Logger::LogLevel::Error, message)
+
+
+
