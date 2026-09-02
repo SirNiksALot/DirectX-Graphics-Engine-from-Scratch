@@ -13,6 +13,7 @@ namespace dx3d {
 	class SwapChain;
 	class Display;
 	class DeviceContext;
+	class ShaderBinary;
 
 	using i32 = int;
 	using ui32 = unsigned int;
@@ -22,4 +23,6 @@ namespace dx3d {
 	
 	using SwapChainPtr = std::shared_ptr<SwapChain>;
 	using DeviceContextPtr = std::shared_ptr<DeviceContext>;
+	using ShaderBinaryPtr = std::shared_ptr<ShaderBinary>;
+
 }

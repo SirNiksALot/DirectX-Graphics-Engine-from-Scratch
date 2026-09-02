@@ -7,6 +7,9 @@ int main() {
 
 		game.run();
 	}
+	catch (std::invalid_argument&) {
+		return EXIT_FAILURE;
+	}
 	catch (std::runtime_error&) {
 		return EXIT_FAILURE;
 	}
