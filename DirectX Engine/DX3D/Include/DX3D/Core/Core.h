@@ -14,6 +14,7 @@ namespace dx3d {
 	class Display;
 	class DeviceContext;
 	class ShaderBinary;
+	class GraphicsPipelineState;
 
 	using i32 = int;
 	using ui32 = unsigned int;
@@ -24,5 +25,7 @@ namespace dx3d {
 	using SwapChainPtr = std::shared_ptr<SwapChain>;
 	using DeviceContextPtr = std::shared_ptr<DeviceContext>;
 	using ShaderBinaryPtr = std::shared_ptr<ShaderBinary>;
+	using GraphicsPipelineStatePtr = std::shared_ptr<GraphicsPipelineState>;
+
 
 }

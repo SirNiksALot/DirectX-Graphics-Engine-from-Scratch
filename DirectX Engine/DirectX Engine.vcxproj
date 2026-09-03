@@ -158,6 +158,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Core\Logger.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\SwapChain.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\ShaderBinary.cpp" />
+    <ClCompile Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineState.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec4.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsUtils.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\SwapChain.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ShaderBinary.h" />
+    <ClInclude Include="DX3D\Source\DX3D\Graphics\GraphicsPipelineState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

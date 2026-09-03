@@ -41,7 +41,12 @@ namespace dx3d{
 		VertexShader = 0,
 		PixelShader
 	};
-	
+
+	struct ShaderBinaryData {
+		const void* data{};
+		size_t dataSize{};
+	};
+
 	struct ShaderCompileDesc {
 		const char* shaderSourceName{};
 		const void* shaderSourceCode{};
@@ -50,4 +55,8 @@ namespace dx3d{
 		ShaderType shaderType{};
 	};
 
+	struct GraphicsPipelineStateDesc {
+		const ShaderBinary& vs;
+		const ShaderBinary& ps;
+	};
 }

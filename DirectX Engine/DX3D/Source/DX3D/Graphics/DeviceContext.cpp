@@ -1,5 +1,7 @@
 #include <DX3D/Graphics/DeviceContext.h>
 #include <DX3D/Graphics/SwapChain.h>
+#include <DX3D/Graphics/ShaderBinary.h>
+#include <DX3D/Graphics/GraphicsPipelineState.h>
 
 dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
@@ -28,5 +30,14 @@ void dx3d::DeviceContext::clearAndSetBackBuffer(const SwapChain& swapChain, cons
 		1,
 		&rtv, // we simulate an array by passing the address of the rtv ( like how array names hold the address to the first element ) 
 		nullptr);
+}
+
+void dx3d::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& pipeline)
+{
+	// this method binds a Vertext shader to the GPU pipeline
+	m_context->VSSetShader(pipeline.m_vs.Get()
+		,nullptr,0); // these 2 args are for dynamic shader linking ( but we will not be using hence null ) 
+	// similarly for Pixel shader
+	m_context->PSSetShader(pipeline.m_ps.Get(), nullptr, 0);
 }
 
