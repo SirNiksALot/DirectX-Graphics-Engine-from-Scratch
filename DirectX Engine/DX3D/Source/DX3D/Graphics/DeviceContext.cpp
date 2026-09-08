@@ -2,6 +2,7 @@
 #include <DX3D/Graphics/SwapChain.h>
 #include <DX3D/Graphics/ShaderBinary.h>
 #include <DX3D/Graphics/GraphicsPipelineState.h>
+#include <DX3D/Graphics/VertexBuffer.h>
 
 dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
@@ -39,5 +40,21 @@ void dx3d::DeviceContext::setGraphicsPipelineState(const GraphicsPipelineState& 
 		,nullptr,0); // these 2 args are for dynamic shader linking ( but we will not be using hence null ) 
 	// similarly for Pixel shader
 	m_context->PSSetShader(pipeline.m_ps.Get(), nullptr, 0);
+}
+
+void dx3d::DeviceContext::setVertexBuffer(const VertexBuffer& buffer)
+{
+	auto buf = buffer.m_buffer.Get(); // return pointer to vertex buffer
+	auto stride = buffer.m_vertexSize;
+	auto offset = 0u;
+
+	m_context->IASetVertexBuffers(
+	0, // pointer to start to list of vertex buffers ( but we only use 1 VB so we pass null ) 
+	1, // number of VBs
+	&buf, // pointer to list of VBs
+	&stride, // size of single vertex in bytes
+	&offset // offset to say from where to start processing the data ( since we dont do anything with offsets we set it to unsigned int 0 ) 
+	);
+	// this functions binds one or more vertex buffers to the input assembler ( IA ) stage of GPU pipeline
 }
 

@@ -2,6 +2,7 @@
 #include <DX3D/Graphics/GraphicsDevice.h>
 #include <DX3D/Graphics/DeviceContext.h>
 #include <DX3D/Graphics/SwapChain.h>
+#include <DX3D/Math/Vec3.h>
 
 using namespace dx3d;
 
@@ -31,7 +32,7 @@ void PSMain()
 		shaderSourceName,
 		shaderSourceCode,
 		shaderSourceCodeSize,
-		"VSmain", 
+		"VSMain", 
 		ShaderType::VertexShader });
 
 
@@ -39,10 +40,19 @@ void PSMain()
 		shaderSourceName,
 		shaderSourceCode,
 		shaderSourceCodeSize,
-		"PSmain", 
+		"PSMain", 
 		ShaderType::PixelShader });
 
 	m_pipeline = device.createGraphicsPipelineState({ *vs,*ps });
+
+
+	const Vec3 vertexList[] = {
+		{-0.5f,-0.5f,0.0f},
+		{0.0f,0.5f,0.0f},
+		{0.5f,-0.5f,0.0f},
+
+	};
+	m_vb = device.createVertexBuffer({vertexList,std::size(vertexList),sizeof(Vec3)});
 }
 
 
@@ -64,6 +74,9 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	// STEP 2 : Set Graphics pipeline to add your Vertex and pixel shader to GPU pipeline
 	context.setGraphicsPipelineState(*m_pipeline);
 
+	// STEP 3 : Set Vertex buffer to pipeline --------------------------------------------------------
+	auto& vb = *m_vb;
+	context.setVertexBuffer(vb);
 
 	// STEP 3 : Execute command list using immediate context inside GraphicsDevice ------------------
 	auto& device = *m_graphicsDevice;

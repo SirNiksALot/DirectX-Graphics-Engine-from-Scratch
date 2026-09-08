@@ -18,7 +18,20 @@ dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc,const GraphicsRes
 #endif
 	Microsoft::WRL::ComPtr<ID3DBlob> errorBlob{};
 
-	DX3DGraphicsCheckShaderCompile(D3DCompile(
+	//DX3DGraphicsCheckShaderCompile( D3DCompile(
+	//	desc.shaderSourceCode,
+	//	desc.shaderSourceCodeSize,
+	//	desc.shaderSourceName,
+	//	nullptr,
+	//	nullptr,
+	//	desc.shaderEntryPoint,
+	//	dx3d::GraphicsUtils::GetShaderModelTarget(desc.shaderType),
+	//	compile_flags,
+	//	0,
+	//	&m_blob,
+	//	&errorBlob),errorBlob.Get());
+
+	D3DCompile(
 		desc.shaderSourceCode,
 		desc.shaderSourceCodeSize,
 		desc.shaderSourceName,
@@ -29,7 +42,7 @@ dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc,const GraphicsRes
 		compile_flags,
 		0,
 		&m_blob,
-		&errorBlob),errorBlob.Get());
+		&errorBlob);
 
 }
 
