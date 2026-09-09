@@ -3,6 +3,7 @@
 #include <DX3D/Graphics/DeviceContext.h>
 #include <DX3D/Graphics/SwapChain.h>
 #include <DX3D/Math/Vec3.h>
+#include <DX3D/Graphics/VertexBuffer.h>
 
 using namespace dx3d;
 
@@ -17,11 +18,13 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc):Base(desc.b
 
 	constexpr char shaderSourceCode[] =
 		R"(
-void VSMain()
+float4 VSMain(float3 pos : POSITION): SV_Position
 {
+return float4(pos.xyz,1);
 }
-void PSMain()
+float4 PSMain() : SV_Target
 {
+return float4(1.0, 1.0, 1.0, 1.0);
 }
 )";
 	constexpr char shaderSourceName[] = "Basic";
@@ -74,15 +77,24 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 	// STEP 2 : Set Graphics pipeline to add your Vertex and pixel shader to GPU pipeline
 	context.setGraphicsPipelineState(*m_pipeline);
 
+	// STEP 3 : Set viewport size 
+	context.setViewPortSize(swapChain.getSize());
+
 	// STEP 3 : Set Vertex buffer to pipeline --------------------------------------------------------
 	auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
 
-	// STEP 3 : Execute command list using immediate context inside GraphicsDevice ------------------
+	// STEP 4 : Draw triangle ------------------------------------------------------------------------
+	context.drawTriangleList(
+		vb.getVertexListSize(),
+		0u // start processing from the first vertex
+		);
+
+	// STEP 4 : Execute command list using immediate context inside GraphicsDevice ------------------
 	auto& device = *m_graphicsDevice;
 	device.executeCommandList(context);
 
-	// STEP 4 : Present Back buffer to Front buffer -------------------------------------------------
+	// STEP 5 : Present Back buffer to Front buffer -------------------------------------------------
 	swapChain.present();
 
 }

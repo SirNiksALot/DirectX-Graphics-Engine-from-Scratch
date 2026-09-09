@@ -41,8 +41,8 @@ dx3d::ShaderBinary::ShaderBinary(const ShaderCompileDesc& desc,const GraphicsRes
 		dx3d::GraphicsUtils::GetShaderModelTarget(desc.shaderType),
 		compile_flags,
 		0,
-		&m_blob,
-		&errorBlob);
+		&m_blob, // output param ( compiled HLSL bytecode ) 
+		&errorBlob); // output param ( error message blob/bytes ) 
 
 }
 

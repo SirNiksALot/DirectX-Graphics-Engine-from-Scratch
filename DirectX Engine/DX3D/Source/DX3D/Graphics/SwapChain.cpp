@@ -4,7 +4,7 @@
 
 
 dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc& gDesc):
-	GraphicsResource(gDesc)
+	GraphicsResource(gDesc),m_size(desc.winSize)
 { 
 	if (!desc.winHandle) DX3DLogThrowInvalidArg("No window handle provided.");
 
@@ -37,6 +37,11 @@ dx3d::SwapChain::SwapChain(const SwapChainDesc& desc, const GraphicsResourceDesc
 
 	// ------------------------------- STEP 2 : Setup RenderTargetView from back buffer -------------------------------- 
 	reloadBuffers();
+}
+
+dx3d::Rect dx3d::SwapChain::getSize() const noexcept
+{
+	return m_size;
 }
 
 void dx3d::SwapChain::present(bool vsync)

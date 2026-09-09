@@ -1,7 +1,7 @@
 #include <DX3D/Graphics/VertexBuffer.h>
 
 dx3d::VertexBuffer::VertexBuffer(const VertexBufferDesc& desc,const GraphicsResourceDesc& gDesc):
-	GraphicsResource(gDesc),m_vertexSize(desc.vertexSize)
+	GraphicsResource(gDesc),m_vertexSize(desc.vertexSize),m_vertexListSize(desc.vertexListSize)
 {
 	// ---------------------- Validate Args -------------------------
 	if (!desc.vertexList) DX3DLogThrowInvalidArg("No vertext list provided")
@@ -30,4 +30,9 @@ dx3d::VertexBuffer::VertexBuffer(const VertexBufferDesc& desc,const GraphicsReso
 		&initData,
 		&m_buffer // output parameter 
 		),"CreateBuffer Failed");
+}
+
+dx3d::ui32 dx3d::VertexBuffer::getVertexListSize() const noexcept
+{
+	return m_vertexListSize;
 }
