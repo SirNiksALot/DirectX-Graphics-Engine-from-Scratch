@@ -28,7 +28,7 @@ if (FAILED(res))\
 	DX3DLogThrow(getLogger(),std::runtime_error,dx3d::Logger::LogLevel::Error,message);\
 }
 
-#define DX3DGraphicsCheckShaderCompile(hr,errroBlob)\
+#define DX3DGraphicsCheckShaderCompile(hr,errorBlob)\
 {\
 auto res = (hr);\
 dx3d::GraphicsLogUtils::CheckShaderCompile(getLogger(),res,errorBlob);\

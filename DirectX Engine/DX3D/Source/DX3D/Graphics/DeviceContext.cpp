@@ -69,9 +69,12 @@ void dx3d::DeviceContext::setViewPortSize(const Rect& size)
 	vp.Width = static_cast<f32>(size.width);
 	vp.Height = static_cast<f32>(size.height);
 	vp.MinDepth = 0.0f ; // near clipping plain
-	vp.MinDepth = 1.0f; // far clipping plain
+	vp.MaxDepth = 1.0f; // far clipping plain
 
-	m_context->RSSetViewports(0, &vp);
+	// this function configures how geometry would be rasterized on the screen
+	m_context->RSSetViewports(
+		1, // number of viewports we intend to use ( we intend to use 1 only )  
+		&vp);
 }
 
 void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)
@@ -81,6 +84,7 @@ void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLoc
 	D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST // every group of 3 vertices will be treated as an independent triangle
 	);
 
+	// drawing vertices to view port 
 	m_context->Draw(vertexCount, startVertexLocation);
 }
 
