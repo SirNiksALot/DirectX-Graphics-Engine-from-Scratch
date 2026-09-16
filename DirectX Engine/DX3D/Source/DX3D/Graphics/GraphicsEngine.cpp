@@ -4,35 +4,36 @@
 #include <DX3D/Graphics/SwapChain.h>
 #include <DX3D/Math/Vec3.h>
 #include <DX3D/Graphics/VertexBuffer.h>
-
+#include <fstream>
 using namespace dx3d;
 
 dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc):Base(desc.base)
 {
-
+	// Create GraphicsDevice and DeviceContext
+	// ----------------------------------------------------------------------------------------
 	m_graphicsDevice = std::make_shared<GraphicsDevice>(GraphicsDeviceDesc{m_logger});
 
 	auto& device = *m_graphicsDevice;
 	m_deviceContext =  device.createDeviceContext();
 
 
-	constexpr char shaderSourceCode[] =
-		R"(
-float4 VSMain(float3 pos : POSITION): SV_Position
-{
-return float4(pos.xyz,1);
-}
-float4 PSMain() : SV_Target
-{
-return float4(1.0, 1.0, 1.0, 1.0);
-}
-)";
-	constexpr char shaderSourceName[] = "Basic";
-	constexpr auto shaderSourceCodeSize = std::size(shaderSourceCode);
+	// Read HLSL file to load HLSL source code 
+	// ----------------------------------------------------------------------------------------
+	constexpr char shaderFilePath[] = "DX3D/Assets/Shaders/Basic.hlsl";
+	std::ifstream shaderStream(shaderFilePath);
+	if (!shaderStream) DX3DLogThrowInvalidArg("Failed to open shader file");
+	std::string shaderFileData{
+		std::istreambuf_iterator<char>(shaderStream),
+		std::istreambuf_iterator<char>(),
+	};
+	auto shaderSourceCode = shaderFileData.c_str();
+	auto shaderSourceCodeSize = shaderFileData.length();;
 
 
+	// Compile HLSL
+	// ----------------------------------------------------------------------------------------
 	auto vs = device.compileShader({
-		shaderSourceName,
+		shaderFilePath,
 		shaderSourceCode,
 		shaderSourceCodeSize,
 		"VSMain", 
@@ -40,22 +41,31 @@ return float4(1.0, 1.0, 1.0, 1.0);
 
 
 	auto ps = device.compileShader({
-		shaderSourceName,
+		shaderFilePath,
 		shaderSourceCode,
 		shaderSourceCodeSize,
 		"PSMain", 
 		ShaderType::PixelShader });
 
+
+	// Instantiate GraphicsPipelineState 
+	// ----------------------------------------------------------------------------------------
 	m_pipeline = device.createGraphicsPipelineState({ *vs,*ps });
 
 
-	const Vec3 vertexList[] = {
-		{-0.5f,-0.5f,0.0f},
-		{0.0f,0.5f,0.0f},
-		{0.5f,-0.5f,0.0f},
 
+	// Create vertex buffer
+	// ----------------------------------------------------------------------------------------
+	const Vertex vertexList[] = {
+		{ {-0.5f, -0.5f, 0.0f}, {1,0,0,1} },
+		{ {-0.5f, 0.5f, 0.0f}, {0,1,0,1} },
+		{ {0.5f, 0.5f, 0.0f}, {0,0,1,1} },
+
+		{ {0.5f, 0.5f, 0.0f}, {0,0,1,1} },
+		{ {0.5f, -0.5f, 0.0f}, {1,0,1,1} },
+		{ {-0.5f, -0.5f, 0.0f}, {1,0,0,1} }
 	};
-	m_vb = device.createVertexBuffer({vertexList,std::size(vertexList),sizeof(Vec3)});
+	m_vb = device.createVertexBuffer({vertexList,std::size(vertexList),sizeof(Vertex)});
 }
 
 
@@ -72,7 +82,7 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 {
 	// STEP 1 : Collect all commands in Deffered context --------------------------------------------
 	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, {1,0,0,1}); // Red set to 1 and opacity 1 (100%) . G and B to 0.
+	context.clearAndSetBackBuffer(swapChain, {0.27f,0.39f,0.55f,1.0f}); // Red set to 1 and opacity 1 (100%) . G and B to 0.
 
 	// STEP 2 : Set Graphics pipeline to add your Vertex and pixel shader to GPU pipeline
 	context.setGraphicsPipelineState(*m_pipeline);

@@ -23,6 +23,10 @@ dx3d::GraphicsPipelineState::GraphicsPipelineState(const GraphicsPipelineStateDe
 
 	// STEP 2 ----------------- creating input layout -----------------------------------------
 	// Purpose :  to allow for the vertex shader to understand the vertex data in vertex buffer 
+	
+	// Current vertext shader input struct looks like this : 
+	//float3 position : POSITION0;
+	//float4 color : COLOR0;
 	constexpr D3D11_INPUT_ELEMENT_DESC elements[] =
 	{
 		{
@@ -33,7 +37,17 @@ dx3d::GraphicsPipelineState::GraphicsPipelineState(const GraphicsPipelineStateDe
 			0, // buffer offset ( position is the first data we encounter in the buffer so, 0 
 			D3D11_INPUT_PER_VERTEX_DATA,
 			0
+		},
+		{
+			"COLOR",
+			0,
+			DXGI_FORMAT_R32G32B32A32_FLOAT,
+			0,
+			12, // offset is 12 because : color comes 12 bytes after position ( 3 floats of each 4 bytes )
+			D3D11_INPUT_PER_VERTEX_DATA,
+			0,
 		}
+
 	};
 	DX3DGraphicsLogThrowOnFail( m_device.CreateInputLayout(
 		elements,
