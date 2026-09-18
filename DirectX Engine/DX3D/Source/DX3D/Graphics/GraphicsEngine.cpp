@@ -48,9 +48,15 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc):Base(desc.b
 		ShaderType::PixelShader });
 
 
+	// Create VertexShaderSignature ( for getting input layout elements ) 
+	// ----------------------------------------------------------------------------------------
+	auto vsSig = device.createVertexSignature({ vs });
+
+
+
 	// Instantiate GraphicsPipelineState 
 	// ----------------------------------------------------------------------------------------
-	m_pipeline = device.createGraphicsPipelineState({ *vs,*ps });
+	m_pipeline = device.createGraphicsPipelineState({ *vsSig,*ps });
 
 
 
