@@ -13,10 +13,16 @@ struct VSOutput
     float4 color : COLOR0 ;
 };
 
+
+cbuffer ConstantData : register(b0) {
+  float scale;  
+};
+
+
 VSOutput VSMain(VSInput input) 
 {
     VSOutput output;
-    output.position = float4(input.position, 1);
+    output.position = float4(input.position * scale, 1);
     output.color = input.color;
     return output;
 }

@@ -67,7 +67,13 @@ namespace dx3d{
 	};
 
 	struct VertexShaderSignatureDesc {
-		const ShaderBinaryPtr& vsBinary;
+		const RefPtr<ShaderBinary>& vsBinary;
 
+	};
+
+	struct ConstantBufferDesc {
+
+		const void* buffer{};
+		ui32 bufferSize{};
 	};
 }

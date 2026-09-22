@@ -14,7 +14,8 @@ dx3d::VertexBuffer::VertexBuffer(const VertexBufferDesc& desc,const GraphicsReso
 	
 	buffDesc.ByteWidth = desc.vertexListSize * desc.vertexSize ; // size of buffer in bytes 
 	// note : vertexSize is size of single vertex in bytes and vertexListSize is number of vertices
-
+	
+	
 	buffDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER; 
 	//  tells D3D11 device that this buffer is to be used as a vertex buffer
 

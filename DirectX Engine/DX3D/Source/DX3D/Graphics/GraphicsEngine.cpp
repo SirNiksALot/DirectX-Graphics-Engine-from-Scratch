@@ -88,7 +88,7 @@ void dx3d::GraphicsEngine::render(SwapChain& swapChain)
 {
 	// STEP 1 : Collect all commands in Deffered context --------------------------------------------
 	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, {0.27f,0.39f,0.55f,1.0f}); // Red set to 1 and opacity 1 (100%) . G and B to 0.
+	context.clearAndSetBackBuffer(swapChain, {0.55f,0.39f,0.55f,1.0f}); 
 
 	// STEP 2 : Set Graphics pipeline to add your Vertex and pixel shader to GPU pipeline
 	context.setGraphicsPipelineState(*m_pipeline);
