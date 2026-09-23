@@ -3,6 +3,7 @@
 #include <DX3D/Graphics/ShaderBinary.h>
 #include <DX3D/Graphics/GraphicsPipelineState.h>
 #include <DX3D/Graphics/VertexBuffer.h>
+#include <DX3D/Graphics/ConstantBuffer.h>
 
 dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
@@ -75,6 +76,41 @@ void dx3d::DeviceContext::setViewPortSize(const Rect& size)
 	m_context->RSSetViewports(
 		1, // number of viewports we intend to use ( we intend to use 1 only )  
 		&vp);
+}
+
+void dx3d::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
+{
+	auto buf = buffer.m_buffer.Get(); // the ID3D11 buffer
+	m_context->VSSetConstantBuffers(
+		0, // start slot 
+		1, // num of buffers
+		&buf
+	);
+	m_context->PSSetConstantBuffers(
+		0, // start slot
+		1, // num of buffers
+		&buf
+	);
+}
+
+void dx3d::DeviceContext::updateConstantBuffer(const ConstantBuffer& buffer, const void* data)
+{
+	if (!data) DX3DLogThrowInvalidArg("Null data passed to updateConstantBuffer");
+
+	auto buf = buffer.m_buffer.Get();
+	D3D11_MAPPED_SUBRESOURCE mapped{};
+	DX3DGraphicsLogThrowOnFail(
+		m_context->Map(
+			buf,
+			0,
+			D3D11_MAP_WRITE_DISCARD,
+			0,
+			&mapped //output param
+		)
+	,"ID3D11DeviceContext::Map failed");
+
+	std::memcpy(mapped.pData, data, buffer.m_size);
+	m_context->Unmap(buf, 0);
 }
 
 void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLocation)

@@ -13,6 +13,10 @@ namespace dx3d {
 		void setVertexBuffer(const VertexBuffer& buffer);
 		void setViewPortSize(const Rect& size); 
 
+		void setConstantBuffer(const ConstantBuffer& buffer);
+		void updateConstantBuffer(const ConstantBuffer& buffer, const void* data);
+
+
 		void drawTriangleList(ui32 vertexCount, ui32 startVertexLocation);
 
 	private:

@@ -13,7 +13,7 @@ namespace dx3d {
 		GraphicsDevice& getGraphicsDevice() noexcept;
 
 		// This function will handle sending commands to GPU and writing to buffer using swapchain etc.
-		void render(SwapChain& swapChain);
+		void render(SwapChain& swapChain,f32 deltatime);
 
 	private:
 		struct Vertex {
@@ -21,11 +21,21 @@ namespace dx3d {
 			Vec4 color;
 		};
 
+		struct alignas(16) ConstantData {
+			f32 scale{};
+		};
+
 	private:
-		std::shared_ptr<GraphicsDevice> m_graphicsDevice{};
-		DeviceContextPtr m_deviceContext{};
-		GraphicsPipelineStatePtr m_pipeline{};
-		VertexBufferPtr m_vb{};
+		RefPtr<GraphicsDevice> m_graphicsDevice{};
+		RefPtr<DeviceContext> m_deviceContext{};
+		RefPtr <GraphicsPipelineState> m_pipeline{};
+		RefPtr<VertexBuffer> m_vb{};
+		RefPtr<ConstantBuffer> m_cb{};
+
+		f32 m_sum{};
+		f32 m_scale{};
+
+
 
 
 	};

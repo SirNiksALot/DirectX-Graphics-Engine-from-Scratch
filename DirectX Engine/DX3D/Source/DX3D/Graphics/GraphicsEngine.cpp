@@ -72,6 +72,11 @@ dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc):Base(desc.b
 		{ {-0.5f, -0.5f, 0.0f}, {1,0,0,1} }
 	};
 	m_vb = device.createVertexBuffer({vertexList,std::size(vertexList),sizeof(Vertex)});
+
+	// Create constant buffer
+	// ----------------------------------------------------------------------------------------
+	m_cb = device.createConstantBuffer({ {},sizeof(ConstantData)});
+
 }
 
 
@@ -84,33 +89,51 @@ GraphicsDevice& dx3d::GraphicsEngine::getGraphicsDevice() noexcept
 	return *m_graphicsDevice;
 }
 
-void dx3d::GraphicsEngine::render(SwapChain& swapChain)
-{
-	// STEP 1 : Collect all commands in Deffered context --------------------------------------------
-	auto& context = *m_deviceContext;
-	context.clearAndSetBackBuffer(swapChain, {0.55f,0.39f,0.55f,1.0f}); 
 
-	// STEP 2 : Set Graphics pipeline to add your Vertex and pixel shader to GPU pipeline
+void dx3d::GraphicsEngine::render(SwapChain & swapChain, f32 deltatime)
+{
+	// Collect all commands in Deffered context m_deviceContent ⭐ and,
+	// then execute commands collected in deffered context using 
+	// m_graphicsDevice's immediate context.
+
+	auto& context = *m_deviceContext; // deferred context
+
+	// STEP 1 : Update constant bffer ------------------------------------------------------------
+	auto& cb = *m_cb;
+	m_sum += deltatime * 3.0f;
+	m_scale = std::abs(std::sin(m_sum));
+	ConstantData data{};
+	data.scale = m_scale;
+	context.updateConstantBuffer(cb,&data);
+
+
+	// STEP 2 : Clear the buffer with a color ------------------------------------------------------
+	context.clearAndSetBackBuffer(swapChain, {0.55f,0.39f,0.55f,1.0f});
+
+	// STEP 3 : Set Graphics pipeline to add your Vertex and pixel shader to GPU pipeline ---------
 	context.setGraphicsPipelineState(*m_pipeline);
 
-	// STEP 3 : Set viewport size 
+	// STEP 4 : Set viewport size 
 	context.setViewPortSize(swapChain.getSize());
 
-	// STEP 3 : Set Vertex buffer to pipeline --------------------------------------------------------
+	// STEP 5 : Set Vertex buffer to pipeline --------------------------------------------------------
 	auto& vb = *m_vb;
 	context.setVertexBuffer(vb);
 
-	// STEP 4 : Draw triangle ------------------------------------------------------------------------
+	// STEP 6 : Set Constant buffer to pipeline --------------------------------------------------------
+	context.setConstantBuffer(cb);
+
+	// STEP 7 : Draw triangle ------------------------------------------------------------------------
 	context.drawTriangleList(
 		vb.getVertexListSize(),
 		0u // start processing from the first vertex
 		);
 
-	// STEP 4 : Execute command list using immediate context inside GraphicsDevice ------------------
+	// STEP 8 : Execute command list using immediate context inside GraphicsDevice ------------------
 	auto& device = *m_graphicsDevice;
 	device.executeCommandList(context);
 
-	// STEP 5 : Present Back buffer to Front buffer -------------------------------------------------
+	// STEP 9 : Present Back buffer to Front buffer -------------------------------------------------
 	swapChain.present();
 
 }

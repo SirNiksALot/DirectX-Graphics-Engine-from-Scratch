@@ -26,7 +26,14 @@ dx3d::Game::~Game()
 
 void dx3d::Game::onInternalUpdate()
 {
-	m_graphicsEngine->render(m_display->getSwapChain());
+	// calculating delta time ( time between frames ) --------------------------
+	auto currentTime = std::chrono::steady_clock::now();
+	std::chrono::duration<f32> delta = currentTime - m_previousTime;
+	m_previousTime = currentTime; // for next game loop iteration 
+	auto deltaTime = delta.count();
+
+
+	m_graphicsEngine->render(m_display->getSwapChain(),deltaTime);
 }
 
 dx3d::Logger& dx3d::Game::getLogger() noexcept
