@@ -5,6 +5,9 @@
 #include <DX3D/Math/Vec3.h>
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <fstream>
+#include <DX3D/Core/Base.h>
+
+
 using namespace dx3d;
 
 dx3d::GraphicsEngine::GraphicsEngine(const GraphicsEngineDesc& desc):Base(desc.base)
@@ -101,7 +104,12 @@ void dx3d::GraphicsEngine::render(SwapChain & swapChain, f32 deltatime)
 	// STEP 1 : Update constant bffer ------------------------------------------------------------
 	auto& cb = *m_cb;
 	m_sum += deltatime * 3.0f;
-	m_scale = std::abs(std::sin(m_sum));
+	m_scale = std::abs(std::sin(m_sum)); 
+	/*
+	* m_sum keeps increaing, sin(m_sum) fluctuates between 1 and -1
+	* abs(sin(m_sum)) keeps fluctuating between 0 and 1 
+	* Therefore scale keeps fluctuating between 0 and 1
+	*/ 
 	ConstantData data{};
 	data.scale = m_scale;
 	context.updateConstantBuffer(cb,&data);
