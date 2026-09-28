@@ -53,19 +53,16 @@ namespace dx3d {
 				return res;
 			}
 
-
+			// row major optimizes algo for matrix multiplication
 			Mat4x4 operator * (const Mat4x4 rhs) const noexcept {
 				Mat4x4 res{};
-				for (auto row = 0u;row < 4u;row++) {
-					// cycle through rows
-					for (auto k = 0u; k < 4u;k++) {
-						// cycle through cols
-
+				
+				for (auto row = 0u;row < 4u;row++) { // cycling through row of res matrix
+					for (auto k = 0u; k < 4u;k++) { // cycling through common dim of the 2  matrices
 						auto temp = m_data[row][k];
-						for (auto col = 0u;col < 4u;col++) {
+						for (auto col = 0u;col < 4u;col++) {// cycling through col of res matrix
 							res.m_data[row][col] += temp * rhs.m_data[k][col];
 						}
-
 					}
 				}
 
