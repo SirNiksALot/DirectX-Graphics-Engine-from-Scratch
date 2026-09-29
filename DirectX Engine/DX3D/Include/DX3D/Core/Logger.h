@@ -1,5 +1,6 @@
 #pragma once
 #include <DX3D/Core/Core.h>
+#include <format>
 
 namespace dx3d {
 	class Logger
