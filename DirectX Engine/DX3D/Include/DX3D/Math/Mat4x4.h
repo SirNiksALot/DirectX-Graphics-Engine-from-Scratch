@@ -7,8 +7,7 @@ namespace dx3d {
 	class Mat4x4 {
 		public:
 			Mat4x4() = default;
-		private:
-			f32 m_data[4][4]{};
+		
 
 			// returns identity matrix ( diagnals are 1 ) 
 			static Mat4x4 identity() noexcept {
@@ -69,5 +68,8 @@ namespace dx3d {
 
 				return res;
 			}
+
+	private:
+		f32 m_data[4][4]{};
 	};
 }

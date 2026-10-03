@@ -3,6 +3,7 @@
 #include <DX3D/Core/Core.h>
 #include <DX3D/Math/Vec3.h>
 #include <DX3D/Math/Vec4.h>
+#include <DX3D/Math/Mat4x4.h>
 
 namespace dx3d {
 	class GraphicsEngine : public Base
@@ -22,7 +23,7 @@ namespace dx3d {
 		};
 
 		struct alignas(16) ConstantData {
-			f32 scale{};
+			Mat4x4 world{};
 		};
 
 	private:
@@ -32,8 +33,7 @@ namespace dx3d {
 		RefPtr<VertexBuffer> m_vb{};
 		RefPtr<ConstantBuffer> m_cb{};
 
-		f32 m_sum{};
-		f32 m_scale{};
+		f32 m_scale{}, m_rot{}, m_pos{ -1.0f };
 
 
 
