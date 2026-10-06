@@ -76,4 +76,12 @@ namespace dx3d{
 		const void* buffer{};
 		ui32 bufferSize{};
 	};
+
+
+	struct IndexBufferDesc {
+		const ui32* indexList{};
+		ui32 indexListSize{};
+	};
+
+
 }

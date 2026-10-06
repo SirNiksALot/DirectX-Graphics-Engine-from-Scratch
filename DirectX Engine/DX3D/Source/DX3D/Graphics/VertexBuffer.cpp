@@ -29,7 +29,7 @@ dx3d::VertexBuffer::VertexBuffer(const VertexBufferDesc& desc,const GraphicsReso
 	DX3DGraphicsLogThrowOnFail( m_device.CreateBuffer(
 		&buffDesc,
 		&initData,
-		&m_buffer // output parameter 
+		&m_buffer // output parameter ( com pointer to vertex buffer ) 
 		),"CreateBuffer Failed");
 }
 

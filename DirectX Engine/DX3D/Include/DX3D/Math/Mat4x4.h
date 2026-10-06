@@ -2,6 +2,7 @@
 #include <DX3D/Core/Core.h>
 #include <cmath>
 #include <DX3D/Math/Vec3.h>
+#include <cassert>
 
 namespace dx3d {
 	class Mat4x4 {
@@ -40,7 +41,7 @@ namespace dx3d {
 				return res;
 			}
 
-			// return rotational matrix
+			// return rotational matrix for rotation about Z axis 
 			static Mat4x4 rotateZ(f32 z) noexcept {
 				Mat4x4 res{};
 				res.m_data[0][0] = std::cos(z);
@@ -51,6 +52,31 @@ namespace dx3d {
 				res.m_data[3][3] = 1;
 				return res;
 			}
+
+			// return rotational matrix for rotation about x axis 
+			static Mat4x4 rotateX(f32 x) noexcept {
+				Mat4x4 res{};
+				res.m_data[0][0] = 1;
+				res.m_data[0][1] = std::cos(x);
+				res.m_data[1][0] = std::sin(x);
+				res.m_data[1][1] = -std::sin(x);
+				res.m_data[2][2] = std::cos(x);
+				res.m_data[3][3] = 1;
+				return res;
+			}
+
+			// return rotational matrix for rotation about y axis 
+			static Mat4x4 rotateY(f32 y) noexcept {
+				Mat4x4 res{};
+				res.m_data[0][0] = std::cos(y);
+				res.m_data[0][1] = 1;
+				res.m_data[1][0] = -std::sin(y);
+				res.m_data[1][1] = std::sin(y);
+				res.m_data[2][2] = std::cos(y);
+				res.m_data[3][3] = 1;
+				return res;
+			}
+
 
 			// row major optimizes algo for matrix multiplication
 			Mat4x4 operator * (const Mat4x4 rhs) const noexcept {
@@ -65,6 +91,22 @@ namespace dx3d {
 					}
 				}
 
+
+				return res;
+			}
+
+			// returns orthographic projection transformation matrix
+			static Mat4x4 orthoLH(f32 width, f32 height, f32 zNear, f32 zFar) noexcept {
+				assert(width != 0.0f && "OrthoLH: Width must not be 0");
+				assert(height != 0.0f && "OrthoLH: Height must not be 0");
+				assert(zFar != zNear && "OrthoLH: Width must not be 0");
+
+				Mat4x4 res{};
+				res.m_data[0][0] = 2.0f / width;
+				res.m_data[1][1] = 2.0f / height;
+				res.m_data[2][2] = 1.0f / ( zFar - zNear) ;
+				res.m_data[3][2] = -( zNear / (zFar - zNear));
+				res.m_data[3][3] = 1;
 
 				return res;
 			}

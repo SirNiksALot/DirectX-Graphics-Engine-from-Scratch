@@ -4,6 +4,7 @@
 #include <DX3D/Graphics/GraphicsPipelineState.h>
 #include <DX3D/Graphics/VertexBuffer.h>
 #include <DX3D/Graphics/ConstantBuffer.h>
+#include <DX3D/Graphics/IndexBuffer.h>
 
 dx3d::DeviceContext::DeviceContext(const GraphicsResourceDesc& gDesc) : GraphicsResource(gDesc)
 {
@@ -78,6 +79,15 @@ void dx3d::DeviceContext::setViewPortSize(const Rect& size)
 		&vp);
 }
 
+void dx3d::DeviceContext::setIndexBuffer(const IndexBuffer& buffer)
+{
+	m_context->IASetIndexBuffer(
+		buffer.m_buffer.Get(), 
+		DXGI_FORMAT_R32_UINT, 
+		0 // offset , here it is 0
+	);
+}
+
 void dx3d::DeviceContext::setConstantBuffer(const ConstantBuffer& buffer)
 {
 	auto buf = buffer.m_buffer.Get(); // the ID3D11 buffer
@@ -122,5 +132,16 @@ void dx3d::DeviceContext::drawTriangleList(ui32 vertexCount, ui32 startVertexLoc
 
 	// drawing vertices to view port 
 	m_context->Draw(vertexCount, startVertexLocation);
+}
+
+void dx3d::DeviceContext::drawIndexedTriangleList(ui32 indexCount, ui32 startVertexIndex, ui32 startIndexLocation)
+{
+	// this function decides how IA interprets vertex data ( tells IA to draw a triangle from data ) 
+	m_context->IASetPrimitiveTopology(
+		D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST // every group of 3 vertices will be treated as an independent triangle
+	);
+
+	//draw vertices from index list
+	m_context->DrawIndexed(indexCount, startIndexLocation, startIndexLocation);
 }
 
