@@ -57,9 +57,9 @@ namespace dx3d {
 			static Mat4x4 rotateX(f32 x) noexcept {
 				Mat4x4 res{};
 				res.m_data[0][0] = 1;
-				res.m_data[0][1] = std::cos(x);
-				res.m_data[1][0] = std::sin(x);
-				res.m_data[1][1] = -std::sin(x);
+				res.m_data[1][1] = std::cos(x);
+				res.m_data[1][2] = std::sin(x);
+				res.m_data[2][1] = -std::sin(x);
 				res.m_data[2][2] = std::cos(x);
 				res.m_data[3][3] = 1;
 				return res;
@@ -69,9 +69,9 @@ namespace dx3d {
 			static Mat4x4 rotateY(f32 y) noexcept {
 				Mat4x4 res{};
 				res.m_data[0][0] = std::cos(y);
-				res.m_data[0][1] = 1;
-				res.m_data[1][0] = -std::sin(y);
-				res.m_data[1][1] = std::sin(y);
+				res.m_data[1][1] = 1;
+				res.m_data[0][2] = -std::sin(y);
+				res.m_data[2][0] = std::sin(y);
 				res.m_data[2][2] = std::cos(y);
 				res.m_data[3][3] = 1;
 				return res;

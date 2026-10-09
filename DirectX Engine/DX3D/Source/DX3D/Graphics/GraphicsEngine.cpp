@@ -158,7 +158,10 @@ void dx3d::GraphicsEngine::render(SwapChain & swapChain, f32 deltatime)
 	auto viewHeight = unitsPerScreenHeight;
 	auto viewWidth = unitsPerScreenHeight * aspect;
 
-	ConstantData data{worldMat,Mat4x4::orthoLH(viewWidth,viewHeight,-10.0f,10.0f)};
+	ConstantData data{
+		worldMat,
+		Mat4x4::orthoLH(viewWidth,viewHeight,-10.0f,10.0f)
+	};
 
 	context.updateConstantBuffer(cb,&data);
 
