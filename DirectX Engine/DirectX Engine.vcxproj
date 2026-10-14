@@ -166,6 +166,7 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\IndexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DX3D\Include\DX3D\Core\Identifiable.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Mat4x4.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\ConstantBuffer.h" />
     <ClInclude Include="DX3D\Include\DX3D\Math\Vec3.h" />

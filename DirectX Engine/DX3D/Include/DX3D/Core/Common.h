@@ -84,4 +84,12 @@ namespace dx3d{
 	};
 
 
+	struct WorldDesc {
+		BaseDesc base;
+	};
+
+	struct GameObjectDesc {
+		BaseDesc base;
+		World& world;
+	};
 }

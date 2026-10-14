@@ -140,5 +140,8 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\IndexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DX3D\Include\DX3D\Core\Identifiable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
