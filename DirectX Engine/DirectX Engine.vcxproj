@@ -192,6 +192,12 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.h" />
     <ClInclude Include="DX3D\Source\DX3D\Graphics\IndexBuffer.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md">
+      <SubType>
+      </SubType>
+    </None>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
