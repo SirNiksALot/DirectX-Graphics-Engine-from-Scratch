@@ -4,10 +4,7 @@ A lightweight C++ DirectX engine project focused on building a clean rendering f
 
 ## Demo
 
-<video controls width="100%" playsinline>
-  <source src="https://github.com/user-attachments/assets/7beedee3-8502-4f95-9932-e69a72cf2169" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[Watch the demo video](https://github.com/user-attachments/assets/7beedee3-8502-4f95-9932-e69a72cf2169)
 
 ## Overview
 
