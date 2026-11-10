@@ -188,7 +188,7 @@ void dx3d::GraphicsEngine::render(SwapChain & swapChain, f32 deltatime)
 	//	0u // start processing from the first vertex
 	//	);
 
-	// STEP 8 : Set index buffer and Draw indexed triangle list -------------------------------------
+	// STEP 7 : Set index buffer and Draw indexed triangle list -------------------------------------
 	auto& ib = *m_ib;
 
 	context.setIndexBuffer(ib);

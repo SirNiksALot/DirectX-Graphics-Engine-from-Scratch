@@ -4,7 +4,7 @@
 /*
 Note on how ``using type_id_tag = Class``` works here.
 We create an alias for the "Class" type being passed to this macro ( this is called a type alias ) 
-we create this type alias becuase later down the line we will use the HasTypeId in our game objects to verify if the getTypeId() method is set.
+we create this type alias becuase later down the line we will use the HasTypeId in our game objects to verify if all the type id stuff is set.
 */
 
 #define dx3d_typeid(Class)\
