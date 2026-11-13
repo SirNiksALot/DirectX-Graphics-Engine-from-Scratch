@@ -166,6 +166,8 @@
     <ClCompile Include="DX3D\Source\DX3D\Graphics\VertexShaderSignature.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Graphics\IndexBuffer.cpp" />
     <ClCompile Include="DX3D\Source\DX3D\Game\World.cpp" />
+    <ClCompile Include="Game\MainGame.cpp" />
+    <ClCompile Include="Game\MyObjects\MyObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX3D\Include\DX3D\Core\Identifiable.h" />
@@ -195,6 +197,8 @@
     <ClInclude Include="DX3D\Source\DX3D\Graphics\IndexBuffer.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\GameObject.h" />
     <ClInclude Include="DX3D\Include\DX3D\Game\World.h" />
+    <ClInclude Include="Game\MainGame.h" />
+    <ClInclude Include="Game\MyObjects\MyObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md">

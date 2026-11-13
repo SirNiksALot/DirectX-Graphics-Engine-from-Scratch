@@ -1,10 +1,9 @@
-#include <DX3D/All.h>
+#include "MainGame.h"
 
 int main() {
 
 	try {
-		dx3d::Game game({ {1280,720},dx3d::Logger::LogLevel::Error });
-
+		MainGame game({ {1280,720},dx3d::Logger::LogLevel::Error });
 		game.run();
 	}
 	catch (std::invalid_argument&) {
