@@ -13,6 +13,14 @@ void MainGame::onCreate()
 	auto object = world.createGameObject<dx3d::GameObject>();
 	auto myObject = world.createGameObject<MyObject>();
 
+	if (!myObject) return;
+
+	auto transform = myObject->getComponent<dx3d::TransformComponent>();
+	if (!transform) return;
+
+	transform->setPosition({ 10,10,10 });
+	transform->setRotation({ 1.57f,0.707f,1.57f });
+
 
 }
 
